@@ -1,7 +1,7 @@
 <?php
 
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_POST['submit'])) {
   $nama = $_POST['nama-tingkat'];
   $query = "INSERT INTO tb_tingkat(tingkat_nama) VALUES ('" . $nama . "')";

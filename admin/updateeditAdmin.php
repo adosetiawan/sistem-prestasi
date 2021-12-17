@@ -1,7 +1,7 @@
 <?php
 
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_POST['submit'])) {
     $id = $_POST['id'];
     $nama = $_POST['nama'];
@@ -13,7 +13,7 @@ if (isset($_POST['submit'])) {
 
   $query = "UPDATE tb_admin SET
      admin_username='" . $username . "', 
-     " . (!empty($password)?'admin_password = '.md5($password).',':null) . "
+     " . (!empty($password)?'admin_password = "'.md5($password).'",':null) . "
      admin_nama='" . $nama . "', 
      admin_status='" . $status . "' ,
      admin_email='" . $email . "',

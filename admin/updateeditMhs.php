@@ -1,7 +1,7 @@
 <?php
 
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_POST['submit'])) {
   $nimMahasiswa = $_POST['nim'];
   $namaMahasiswa = $_POST['nama'];

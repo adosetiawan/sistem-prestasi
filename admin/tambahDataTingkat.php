@@ -1,4 +1,6 @@
-<?php include '../config/koneksi.php'; ?>
+<?php include '../config/koneksi.php'; 
+include '../config/session.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">

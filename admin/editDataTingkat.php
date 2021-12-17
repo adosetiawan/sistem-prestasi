@@ -1,4 +1,6 @@
-<?php include '../config/koneksi.php'; ?>
+<?php include '../config/koneksi.php';
+include '../config/session.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -36,12 +38,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Tambah tingkat</h1>
+                            <h1>Edit Tingkat Prestasi</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Form Edit Data Tingkat</li>
+                                <li class="breadcrumb-item active">Edit Tingkat</li>
                             </ol>
                         </div>
                     </div>
@@ -77,7 +79,7 @@
                                         <div class="col-md-8">
                                             <div class="form-group">
                                                 <label for="exampleInputEmail1">Nama Tingkat</label>
-                                                <input type="text" name="id-tingkat" value="<?=$result['tingkat_id']?>">
+                                                <input type="hidden" name="id-tingkat" value="<?=$result['tingkat_id']?>">
                                                 <input type="text" class="form-control" id="exampleInputEmail1"
                                                     placeholder="Masukkan Nama tingkat" name="nama-tingkat" value="<?=$result['tingkat_nama']?>">
                                             </div>

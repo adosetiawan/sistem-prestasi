@@ -1,7 +1,7 @@
 <?php
 
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_POST['submit'])) {
   $mahasiswaid = $_POST['mahasiswa-id'];
   $tgllomba = $_POST['tgl-lomba'];

@@ -1,4 +1,6 @@
-<?php include '../config/koneksi.php'; ?>
+<?php include '../config/koneksi.php';
+include '../config/session.php';
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -9,8 +11,7 @@
     <title>Prestasi Mahasiwa</title>
 
     <!-- Google Font: Source Sans Pro -->
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="../assets/plugins/fontawesome-free/css/all.min.css">
     <!-- DataTables -->
@@ -36,12 +37,12 @@
                 <div class="container-fluid">
                     <div class="row mb-2">
                         <div class="col-sm-6">
-                            <h1>Tambah Prestasi</h1>
+                            <h1>Edit Prestasi</h1>
                         </div>
                         <div class="col-sm-6">
                             <ol class="breadcrumb float-sm-right">
                                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                                <li class="breadcrumb-item active">Form Edit Data Prestasi</li>
+                                <li class="breadcrumb-item active">Edit Prestasi</li>
                             </ol>
                         </div>
                     </div>
@@ -62,36 +63,34 @@
                                 <!-- /.card-header -->
                                 <!-- form start -->
                                 <form action="updateeditPrestasi.php" method="POST">
-                                <?php
-                                    if(isset($_GET['nim'])){
-                                        $nim    =$_GET['nim'];
+                                    <?php
+                                    if (isset($_GET['nim'])) {
+                                        $nim    = $_GET['nim'];
+                                    } else {
+                                        die("Error. No ID Selected!");
                                     }
-                                    else {
-                                        die ("Error. No ID Selected!");    
-                                    }
-                            
+
                                     $query = mysqli_query($koneksi, "SELECT * FROM tb_prestasi WHERE prs_mhs_nim='$nim'");
                                     $result = mysqli_fetch_array($query);
-                                ?>
+                                    ?>
                                     <div class="card-body row">
                                         <div class="col-md-6">
-                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="nama-prestasi">Nama Prestasi</label>
-                                                <input type="text" class="form-control" id="nama-prestasi"
-                                                    placeholder="Masukan nama prestasi" name="nama-prestasi" value="<?=$result['prs_nama']?>">
+                                                <input type="text" class="form-control" id="nama-prestasi" placeholder="Masukan nama prestasi" name="nama-prestasi" value="<?= $result['prs_nama'] ?>">
                                             </div>
-                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="mahasiswa-id">Nama Mahasiswa</label>
                                                 <select class="form-control" name="mahasiswa-id" id="mahasiswa-id">
-                                         <?php
+                                                    <?php
                                                     include "../config/koneksi.php";
                                                     $query = mysqli_query($koneksi, "SELECT * FROM tb_mahasiswa");
-                                                    while($data = mysqli_fetch_array($query)){
-                                                        if($data['mhs_nim']==$result['prs_mhs_nim']){
-                                                            echo ' <option value="'.$data['mhs_nim'].'" selected>'.$data['mhs_nama'].'-'.$data['mhs_nim'].'
+                                                    while ($data = mysqli_fetch_array($query)) {
+                                                        if ($data['mhs_nim'] == $result['prs_mhs_nim']) {
+                                                            echo ' <option value="' . $data['mhs_nim'] . '" selected>' . $data['mhs_nama'] . '-' . $data['mhs_nim'] . '
                                                             </option>';
-                                                        }else{
-                                                            echo ' <option value="'.$data['mhs_nim'].'">'.$data['mhs_nama'].'-'.$data['mhs_nim'].'
+                                                        } else {
+                                                            echo ' <option value="' . $data['mhs_nim'] . '">' . $data['mhs_nama'] . '-' . $data['mhs_nim'] . '
                                                             </option>';
                                                         }
                                                     }
@@ -100,48 +99,44 @@
                                             </div>
                                             <div class="form-group">
                                                 <label for="tgl-lomba">Tanggal Lomba</label>
-                                                <input type="date" class="form-control" id="tgl-lomba"
-                                                    placeholder="" name="tgl-lomba" value="<?=$result['prs_tgl_lomba']?>">
+                                                <input type="date" class="form-control" id="tgl-lomba" placeholder="" name="tgl-lomba" value="<?= $result['prs_tgl_lomba'] ?>">
                                             </div>
-                                        
+
                                         </div>
                                         <div class="col-md-6">
-                                        <div class="form-group row">
-                                            <div class="col-md-6">
+                                            <div class="form-group row">
+                                                <div class="col-md-6">
+                                                    <label for="tingkat">Tingkat</label>
+                                                    <select class="form-control" name="tingkat" id="tingkat">
+                                                        <?php
+                                                        include "../config/koneksi.php";
+                                                        $query = mysqli_query($koneksi, "SELECT * FROM tb_tingkat");
+                                                        while ($data = mysqli_fetch_array($query)) {
 
-                                                <label for="tingkat">Tingkat</label>
-                                                <select class="form-control" name="tingkat" id="tingkat">
-                                         <?php
-                                                    include "../config/koneksi.php";
-                                                    $query = mysqli_query($koneksi, "SELECT * FROM tb_tingkat");
-                                                    while($data = mysqli_fetch_array($query)){
-
-                                                        if($data['tingkat_id']==$result['prs_tingkat_id']){
-                                                            echo ' <option value="'.$data['tingkat_id'].'" selected>'.$data['tingkat_nama'].'
+                                                            if ($data['tingkat_id'] == $result['prs_tingkat_id']) {
+                                                                echo ' <option value="' . $data['tingkat_id'] . '" selected>' . $data['tingkat_nama'] . '
                                                             </option>';
-                                                        }else{
-                                                            echo ' <option value="'.$data['tingkat_id'].'" selected>'.$data['tingkat_nama'].'
+                                                            } else {
+                                                                echo ' <option value="' . $data['tingkat_id'] . '">' . $data['tingkat_nama'] . '
                                                             </option>';
+                                                            }
+                                                        ?>
+                                                        <?php
                                                         }
-                                                    ?>
-                                                <?php
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-6">
+                                                        ?>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-6">
 
-                                                <label for="Peringkat">Peringkat</label>
-                                                <div class="form-group">
-                                                <input type="number" class="form-control" id="peringkat" name="peringkat" value="<?=$result['prs_peringkat']?>">
+                                                    <label for="Peringkat">Peringkat</label>
+                                                    <div class="form-group">
+                                                        <input type="number" class="form-control" id="peringkat" name="peringkat" value="<?= $result['prs_peringkat'] ?>">
+                                                    </div>
+                                                </div>
                                             </div>
-                                            </div>
-                                            </div>
-                                        <div class="form-group">
+                                            <div class="form-group">
                                                 <label for="jenis-lomba">Jenis Lomba</label>
-                                                <input type="text" class="form-control"
-                                                    id="jenis-lomba" placeholder="Masukkan Jenis Lomba"
-                                                    name="jenis-lomba" value="<?=$result['prs_jenis_lomba']?>">
+                                                <input type="text" class="form-control" id="jenis-lomba" placeholder="Masukkan Jenis Lomba" name="jenis-lomba" value="<?= $result['prs_jenis_lomba'] ?>">
                                             </div>
                                             <div class="form-group">
                                                 <label for="bukti">Bukti Gambar </label>
@@ -164,7 +159,7 @@
 
         <!-- /.content-wrapper -->
         <footer class="main-footer">
-        <strong>--- Mahasiswa Informasi 2020 ---</a></strong>
+            <strong>--- Mahasiswa Informasi 2020 ---</a></strong>
         </footer>
 
         <!-- Control Sidebar -->
@@ -198,23 +193,23 @@
     <script src="../assets/dist/js/demo.js"></script>
     <!-- Page specific script -->
     <script>
-    $(function() {
-        $("#example1").DataTable({
-            "responsive": true,
-            "lengthChange": false,
-            "autoWidth": false,
-            "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
-        }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
-        $('#example2').DataTable({
-            "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true,
+        $(function() {
+            $("#example1").DataTable({
+                "responsive": true,
+                "lengthChange": false,
+                "autoWidth": false,
+                "buttons": ["copy", "csv", "excel", "pdf", "print", "colvis"]
+            }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+            $('#example2').DataTable({
+                "paging": true,
+                "lengthChange": false,
+                "searching": false,
+                "ordering": true,
+                "info": true,
+                "autoWidth": false,
+                "responsive": true,
+            });
         });
-    });
     </script>
 </body>
 

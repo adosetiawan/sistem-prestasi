@@ -1,7 +1,7 @@
 <?php
 
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_POST['submit'])) {
   $kode = $_POST['kode-prodi'];
   $nama = $_POST['nama-prodi'];

@@ -66,6 +66,7 @@ include '../config/session.php';
                   <table id="example2" class="table table-bordered table-sm table-hover">
                     <thead>
                       <tr>
+                        <th>No</th>
                         <th>NIM Mhs</th>
                         <th>Nama Mhs</th>
                         <th>Alamat Mhs</th>
@@ -79,9 +80,13 @@ include '../config/session.php';
            
                     ?>
                     <tbody>
-                      <?php while ($data = $mahasiswa->fetch_array()) {
+                      
+                      <?php 
+                      $no =1;
+                      while ($data = $mahasiswa->fetch_array()) {
                         ?>
                         <tr>
+                          <td><?=$no++; ?></td>
                           <td><?=$data['mhs_nim']; ?></td>
                           <td><?=$data['mhs_nama']; ?></td>
                           <td><?=$data['mhs_alamat']; ?></td>
@@ -94,6 +99,7 @@ include '../config/session.php';
                     </tbody>
                     <tfoot>
                       <tr>
+                        <th>No</th>
                         <th>NIM Mhs</th>
                         <th>Nama Mhs</th>
                         <th>Alamat Mhs</th>

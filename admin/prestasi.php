@@ -1,7 +1,7 @@
-<?php 
+<?php
 include '../config/koneksi.php';
 include '../config/session.php';
- ?>
+?>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -59,17 +59,75 @@ include '../config/session.php';
             <div class="col-12">
               <div class="card">
                 <div class="card-header">
-                  <a href="tambahDataPrestasi.php" class="btn bg-gradient-success float-right">Tambah Data Prestasi</a>
+                  <div class="row">
+                    <div class="col-md-6">
+                      <a class="btn btn-info" data-toggle="collapse" href="#collapseOne">
+                        Filter Prestasi <i class="fas fa-search"></i>
+                      </a>
+                    </div>
+                    <div class="col-md-6">
+                      <a href="tambahDataPrestasi.php" class="btn bg-gradient-success float-right">Tambah Data Prestasi</a>
+                    </div>
+                  </div>
+                  <div id="accordion">
+                    <div class="card card-primary">
+
+                      <div id="collapseOne" class="collapse <?=isset($_GET['tingkat'])?'show':'';?> " data-parent="#accordion">
+                        <div class="card-body">
+                          <form action="prestasi.php" method="GET">
+
+                          <div class="form-group row">
+                            <div class="col-md-3">
+                              <label for="tingkat">Tingkat</label>
+                              <select class="form-control" name="tingkat" id="tingkat">
+                                <?php
+                                include "../config/koneksi.php";
+                                $query = mysqli_query($koneksi, "SELECT * FROM tb_tingkat");
+                                while ($data = mysqli_fetch_array($query)) {
+
+                                  if (isset($_GET['tingkat']) && $data['tingkat_id'] == $_GET['tingkat']) {
+                                    echo ' <option value="' . $data['tingkat_id'] . '" selected>' . $data['tingkat_nama'] . '
+                                        </option>';
+                                  } else {
+                                    echo ' <option value="' . $data['tingkat_id'] . '">' . $data['tingkat_nama'] . '
+                                        </option>';
+                                  }
+                                ?>
+                                <?php
+                                }
+                                ?>
+                              </select>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="Peringkat">Peringkat</label>
+                              <div class="form-group">
+                                <input type="number" class="form-control" id="peringkat" name="peringkat" value="<?=isset($_GET['peringkat'])?$_GET['peringkat']:'1';?>">
+                              </div>
+                            </div>
+                            <div class="col-md-2">
+                              <label for="Peringkat">Filter </label>
+                              <div class="form-group">
+                                <button type="submit" class="btn btn-info">Kirim <i class="fas fa-papper"></i></button>
+                              </div>
+                            </div>
+                          </div>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 <!-- /.card-header -->
                 <div class="card-body">
                   <table id="example2" class="table table-bordered table-sm table-hover">
                     <thead>
                       <tr>
+                        <th>NO</th>
                         <th>NIM Mhs</th>
                         <th>Mahasiswa</th>
                         <th>Nama Prestasi</th>
                         <th>Peringkat</th>
+                        <th>Tanggal</th>
                         <th>Tingkat</th>
                         <th>Prodi</th>
 
@@ -77,37 +135,54 @@ include '../config/session.php';
                       </tr>
                     </thead>
                     <?php
-                    $query = 'SELECT * FROM tb_prestasi JOIN tb_mahasiswa ON prs_mhs_nim = mhs_nim JOIN tb_prodi ON prodi_kode = mhs_prodi_kode JOIN tb_tingkat ON tingkat_id = prs_tingkat_id';
+                    $sql = '';
+                    if(isset($_GET['tingkat'])){
+                      $sql .= ' WHERE prs_tingkat_id = '.$_GET['tingkat'];
+                    }
+
+                    if(isset($_GET['peringkat'])){
+                      $sql .= ' AND prs_peringkat = '.$_GET['peringkat'];
+                    }
+
+                    $query = 'SELECT * FROM tb_prestasi JOIN tb_mahasiswa ON prs_mhs_nim = mhs_nim JOIN tb_prodi ON prodi_kode = mhs_prodi_kode JOIN tb_tingkat ON tingkat_id = prs_tingkat_id '.$sql;
                     $mahasiswa = $koneksi->query($query);
-           
+
                     ?>
                     <tbody>
-                      <?php while ($data = $mahasiswa->fetch_array()) {
-                        ?>
+                      <?php
+                      $no = 1;
+                      while ($data = $mahasiswa->fetch_array()) {
+                      ?>
                         <tr>
-                          <td><?=$data['mhs_nim']; ?></td>
-                          <td><?=$data['mhs_nama']; ?></td>
-                          <td><?=$data['prs_nama']; ?></td>
+                          <td><?= $no++; ?></td>
+                          <td><?= $data['mhs_nim']; ?></td>
+                          <td><?= $data['mhs_nama']; ?></td>
+                          <td><?= $data['prs_nama']; ?></td>
                           <td class="text-center">
-                          <span class="badge badge-info text-center">
-                            <i class="fas fa-trophy"></i> Juara ke 
-                            <b style="font-size:17px"><?=$data['prs_peringkat']; ?></b>
-                          </span></td>
-                          <td><?=$data['tingkat_nama']; ?></td>
-                          <td><?=$data['prodi_nama']; ?></td>
+                            <span class="badge badge-info text-center">
+                              <i class="fas fa-trophy"></i> Juara ke
+                              <b style="font-size:17px"><?= $data['prs_peringkat']; ?></b>
+                            </span>
+                          </td>
+                          <td><?= date('D,m-Y', strtotime($data['prs_tgl_lomba'])); ?></td>
+                          <td><?= $data['tingkat_nama']; ?></td>
+                          <td><?= $data['prodi_nama']; ?></td>
 
-                          <td class="text-center"><a href="editDataPrestasi.php?nim=<?=$data['prs_mhs_nim']; ?>" class="btn btn-sm   bg-gradient-primary">EDIT</a> |
-                            <a href="deleteDataPrestasi.php?nim=<?=$data['prs_mhs_nim']; ?>" class="btn  btn-sm  bg-gradient-danger">DELETE</a>
+                          <td class="text-center"><a href="editDataPrestasi.php?nim=<?= $data['prs_mhs_nim']; ?>" class="btn btn-sm   bg-gradient-primary">EDIT</a> |
+                            <a href="deleteDataPrestasi.php?nim=<?= $data['prs_mhs_nim']; ?>" class="btn  btn-sm  bg-gradient-danger">DELETE</a>
                           </td>
                         </tr>
                       <?php } ?>
                     </tbody>
                     <tfoot>
                       <tr>
-                      <th>NIM Mhs</th>
+                        <th>NO</th>
+
+                        <th>NIM Mhs</th>
                         <th>Nama Mhs</th>
                         <th>Nama Prestasi</th>
                         <th>Peringkat</th>
+                        <th>Tanggal</th>
                         <th>Tingkat</th>
                         <th>Prodi</th>
 

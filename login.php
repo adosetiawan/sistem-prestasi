@@ -40,7 +40,7 @@
           <div class="form-group">
             <label for="">Password</label>
             <div class="input-group mb-3">
-              <input type="password" class="form-control" placeholder="Masukan Password" name="password">
+              <input type="password" id="password" class="form-control" placeholder="Masukan Password" name="password">
               <div class="input-group-append">
                 <div class="input-group-text">
                   <span class="fas fa-lock"></span>
@@ -51,9 +51,9 @@
           <div class="row">
             <div class="col-12">
               <div class="icheck-primary">
-                <input type="checkbox" id="remember">
-                <label for="remember">
-                  Remember Me
+                <input type="checkbox" id="show-password">
+                <label for="show-password">
+                  Lihat Password
                 </label>
               </div>
             </div>
@@ -75,6 +75,18 @@
         <script src="assets/plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
         <!-- AdminLTE App -->
         <script src="assets/dist/js/adminlte.min.js"></script>
+        <script>
+          $(document).ready(function(){
+            $('#show-password').click(function(){
+              if(this.checked){
+                $('#password').attr('type','text');
+              }else{
+                $('#password').attr('type','password');
+
+              }
+            });
+          });
+        </script>
 </body>
 
 </html>

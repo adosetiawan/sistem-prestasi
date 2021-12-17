@@ -1,6 +1,6 @@
 <?php
 include '../config/koneksi.php';
-
+include '../config/session.php';
 if (isset($_GET['kode'])) {
     $kode = $_GET['kode'];
 
