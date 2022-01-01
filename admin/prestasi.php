@@ -168,8 +168,8 @@ include '../config/session.php';
                           <td><?= $data['tingkat_nama']; ?></td>
                           <td><?= $data['prodi_nama']; ?></td>
 
-                          <td class="text-center"><a href="editDataPrestasi.php?nim=<?= $data['prs_mhs_nim']; ?>" class="btn btn-sm   bg-gradient-primary">EDIT</a> |
-                            <a href="deleteDataPrestasi.php?nim=<?= $data['prs_mhs_nim']; ?>" class="btn  btn-sm  bg-gradient-danger">DELETE</a>
+                          <td class="text-center"><a href="editDataPrestasi.php?id=<?= $data['prs_id']; ?>" class="btn btn-sm   bg-gradient-primary">EDIT</a> |
+                            <a href="deleteDataPrestasi.php?id=<?= $data['prs_id']; ?>" class="btn  btn-sm  bg-gradient-danger">DELETE</a>
                           </td>
                         </tr>
                       <?php } ?>

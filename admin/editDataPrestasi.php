@@ -19,6 +19,7 @@ include '../config/session.php';
     <link rel="stylesheet" href="../assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
     <link rel="stylesheet" href="../assets/plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
     <!-- Theme style -->
+    <link rel="stylesheet" href="../assets/plugins/dropzone/dropzone.css">
     <link rel="stylesheet" href="../assets/dist/css/adminlte.min.css">
 </head>
 
@@ -64,13 +65,13 @@ include '../config/session.php';
                                 <!-- form start -->
                                 <form action="updateeditPrestasi.php" method="POST">
                                     <?php
-                                    if (isset($_GET['nim'])) {
-                                        $nim    = $_GET['nim'];
+                                    if (isset($_GET['id'])) {
+                                        $id    = $_GET['id'];
                                     } else {
                                         die("Error. No ID Selected!");
                                     }
 
-                                    $query = mysqli_query($koneksi, "SELECT * FROM tb_prestasi WHERE prs_mhs_nim='$nim'");
+                                    $query = mysqli_query($koneksi, "SELECT * FROM tb_prestasi WHERE prs_id='$id'");
                                     $result = mysqli_fetch_array($query);
                                     ?>
                                     <div class="card-body row">
@@ -98,13 +99,20 @@ include '../config/session.php';
                                                 </select>
                                             </div>
                                             <div class="form-group">
-                                                <label for="tgl-lomba">Tanggal Lomba</label>
-                                                <input type="date" class="form-control" id="tgl-lomba" placeholder="" name="tgl-lomba" value="<?= $result['prs_tgl_lomba'] ?>">
+                                                <div class="row">
+                                                    <div class="col-7">
+                                                        <label for="jenis-lomba">Jenis Lomba</label>
+                                                        <input type="text" class="form-control" id="jenis-lomba" placeholder="Masukkan Jenis Lomba" name="jenis-lomba" value="<?= $result['prs_jenis_lomba'] ?>">
+                                                    </div>
+                                                    <div class="col-5">
+                                                        <label for="tgl-lomba">Tanggal Lomba</label>
+                                                        <input type="date" class="form-control" id="tgl-lomba" placeholder="" name="tgl-lomba" value="<?= $result['prs_tgl_lomba'] ?>">
+                                                    </div>
+                                                </div>
                                             </div>
-
                                         </div>
                                         <div class="col-md-6">
-                                            <div class="form-group row">
+                                            <div class="form-group row mb-0">
                                                 <div class="col-md-6">
                                                     <label for="tingkat">Tingkat</label>
                                                     <select class="form-control" name="tingkat" id="tingkat">
@@ -135,12 +143,22 @@ include '../config/session.php';
                                                 </div>
                                             </div>
                                             <div class="form-group">
-                                                <label for="jenis-lomba">Jenis Lomba</label>
-                                                <input type="text" class="form-control" id="jenis-lomba" placeholder="Masukkan Jenis Lomba" name="jenis-lomba" value="<?= $result['prs_jenis_lomba'] ?>">
-                                            </div>
-                                            <div class="form-group">
                                                 <label for="bukti">Bukti Gambar </label>
-                                                <input type="file" class="form-control" id="bukti" name="bukti" value="">
+                                                <?php
+                                                require_once '../library/cart.php';
+                                                $cart = new Cart;
+                                                $gambar = array();
+                                                    $query = mysqli_query($koneksi, "SELECT * FROM tb_prestasi_file WHERE prs_file_prsid = '".$result['prs_id']."'");
+                                                    while ($data = mysqli_fetch_array($query)) {
+                                                        $gambar[] = array(
+                                                            'name'=>$data['prs_file_nama'],
+                                                            'size'=>$data['prs_file_size'],
+                                                            'id'=>$data['prs_file_id'],
+                                                            'url'=>'../assets/upload/img/'.$data['prs_file_nama'],
+                                                        );
+                                                    }
+                                                ?>
+                                                <div action="ajax/updateeditPrestasiDZ.php?prsid=<?=$result['prs_id']; ?>" file-added='<?=json_encode($gambar)?>' method="POST" class="dropzone"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -187,6 +205,8 @@ include '../config/session.php';
     <script src="../assets/plugins/datatables-buttons/js/buttons.html5.min.js"></script>
     <script src="../assets/plugins/datatables-buttons/js/buttons.print.min.js"></script>
     <script src="../assets/plugins/datatables-buttons/js/buttons.colVis.min.js"></script>
+    <script src="../assets/plugins/dropzone/dropzone.js"></script>
+    <script src="../assets/dist/js/dropzone-config.js"></script>
     <!-- AdminLTE App -->
     <script src="../assets/dist/js/adminlte.min.js"></script>
     <!-- AdminLTE for demo purposes -->

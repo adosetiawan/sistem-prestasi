@@ -1,10 +1,10 @@
 <?php
 include '../config/koneksi.php';
 include '../config/session.php';
-if (isset($_GET['nim'])) {
-    $nim = $_GET['nim'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
 
-    $query = "DELETE FROM `tb_prestasi` WHERE `tb_mahasiswa`.`prs_mhs_nim` ='" . $nim . "'";
+    $query = "DELETE FROM `tb_prestasi` WHERE `tb_prestasi`.`prs_id` ='" . $id . "'";
     $eksekusi = mysqli_query($koneksi, $query);
   
     if ($eksekusi) {
