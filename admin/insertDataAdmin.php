@@ -13,7 +13,6 @@ if (isset($_POST['submit'])) {
     if(mysqli_num_rows($countuser)==0){
         $query = "INSERT INTO tb_admin(admin_nama, admin_username, admin_password, admin_status, admin_email, admin_telp) VALUES ('" . $nama . "', '" . $username . "', '" . $password . "',  '" . $status . "', '" . $email . "', '" . $telepon . "')";
         $eksekusi = mysqli_query($koneksi, $query);
-    
         if ($eksekusi) {
         header('location:admin.php', true, 301);
         }else{

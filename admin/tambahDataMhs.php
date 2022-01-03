@@ -37,7 +37,7 @@ include '../config/session.php';
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>General Form</h1>
+              <h1>Tambah Mahasiswa</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -58,13 +58,13 @@ include '../config/session.php';
               <!-- general form elements -->
               <div class="card card-primary">
                 <div class="card-header">
-                  <h3 class="card-title">Data Mahasiswa</h3>
+                  <h3 class="card-title">Biodata Mahasiswa</h3>
                 </div>
                 <!-- /.card-header -->
                 <!-- form start -->
                 <form action="insertDataMhs.php" method="POST">
                   <div class="card-body row">
-                  <div class="col-md-8">
+                  <div class="col-md-6">
                     <div class="form-group">
                       <label for="exampleInputEmail1">NIM Mahasiswa</label>
                       <input type="number" class="form-control" id="exampleInputEmail1" placeholder="Masukkan NIM" name="nim" value="">
@@ -91,10 +91,11 @@ include '../config/session.php';
         			        ?>
                       </select>
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputPassword1">Alamat</label>
-                      <textarea class="form-control" name="alamat" id="" cols="30" rows="5"></textarea>
-                    </div>
+               
+            
+                  </div>
+                  <div class="col-md-6">
+                
                     <div class="form-group">
                       <label for="exampleInputPassword1">No.Telp</label>
                       <input type="number" class="form-control" id="exampleInputPassword1" placeholder="Masukkan No.Telp" name="telp" value="">
@@ -103,7 +104,10 @@ include '../config/session.php';
                       <label for="exampleInputPassword1">Email</label>
                       <input type="text" class="form-control" id="exampleInputPassword1" placeholder="Masukkan Email" name="email" value="">
                     </div>
-            
+                    <div class="form-group">
+                      <label for="exampleInputPassword1">Alamat</label>
+                      <textarea class="form-control" name="alamat" id="" cols="30" rows="5"></textarea>
+                    </div>
                   </div>
                   </div>
                   <!-- /.card-body -->

@@ -1,5 +1,5 @@
 <?php
-error_reporting(1);
+//error_reporting(1);
 // koneksi ke DB
 $database = 'prestasi_mahasiswa';
 $username = 'root';
