@@ -41,7 +41,7 @@ $filegambar = $koneksi->query($querygambar);
 </head>
 
 <body>
-<!-- <button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
+    <!-- <button id="docs-sidebar-toggler" class="docs-sidebar-toggler docs-sidebar-visible me-2 d-xl-none" type="button">
     <span></span>
     <span></span>
     <span></span>
@@ -78,27 +78,35 @@ $filegambar = $koneksi->query($querygambar);
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <?php if($prestasi->num_rows>0){ ?>
-                    <div class="callout-block callout-block-success">
-                        <div class="content">
-                            <h4 class="callout-title">
-                                <i class="fas fas fa-info-circle"></i>
-                                Informasi
-                            </h4>
-                            <p>Berhasil. Mahasiswa atas nama <b><?= !empty($result['mhs_nama']) ? $result['mhs_nama'] : ''; ?></b> memiliki <b><?=$prestasi->num_rows;?></b> Prestasi. Untuk informasi lebih lanjut silahkan klik detail. </p>
+                    <?php if ($prestasi->num_rows > 0) { ?>
+                        <div class="callout-block callout-block-success">
+                            <div class="content">
+                                <h4 class="callout-title">
+                                    <i class="fas fas fa-info-circle"></i>
+                                    Informasi
+                                </h4>
+                                <p>Berhasil. Mahasiswa atas nama <b><?= !empty($result['mhs_nama']) ? $result['mhs_nama'] : ''; ?></b> memiliki <b><?= $prestasi->num_rows; ?></b> Prestasi. Untuk informasi lebih lanjut silahkan klik detail. </p>
+                                <div class="container ">
+                                    <div style="float: right;">
+                                        <b>Share Prestasi</b>
+                                        <div class="sharethis-inline-share-buttons float-right" ></div>
+                                    </div>
+                                    <div style="clear: both;"></div>
+
+                                </div>
+                            </div>
                         </div>
-                    </div>
-                    <?php } else {?>
+                    <?php } else { ?>
                         <div class="callout-block callout-block-warning">
-                        <div class="content">
-                            <h4 class="callout-title">
-                                <i class="fas fas fa-info-circle"></i>
-                                Informasi
-                            </h4>
-                            <p>Prestasi Mahasiswa atas nama <b><?= !empty($result['mhs_nama']) ? $result['mhs_nama'] : ''; ?></b> tidak memiliki Prestasi. </p>
+                            <div class="content">
+                                <h4 class="callout-title">
+                                    <i class="fas fas fa-info-circle"></i>
+                                    Informasi
+                                </h4>
+                                <p>Prestasi Mahasiswa atas nama <b><?= !empty($result['mhs_nama']) ? $result['mhs_nama'] : ''; ?></b> tidak memiliki Prestasi. </p>
+                            </div>
                         </div>
-                    </div>
-                    <?php }?>
+                    <?php } ?>
                 </div>
                 <div class="col-md-6">
                     <div class="card mt-4">
@@ -152,7 +160,7 @@ $filegambar = $koneksi->query($querygambar);
                     </div>
                 </div>
                 <div class="col-md-6">
-              
+
                     <div class="card mt-4">
                         <div class="card-header alert-primary">
                             <h6 class="card-title">Daftar Prestasi Mahasiswa</h6>
@@ -190,17 +198,20 @@ $filegambar = $koneksi->query($querygambar);
                             </table>
                         </div>
                     </div>
+
                     <div class="simplelightbox-gallery row mt-3">
-                    <?php
-                    while ($gambar = $filegambar->fetch_array()) {
-                    ?>
-							<div class="col-12 col-md-4 mb-3">
-						        <a href="assets/upload/img/<?=$gambar['prs_file_nama'];?>">
-                                    <img class="figure-img img-fluid shadow rounded" src="assets/upload/img/<?=$gambar['prs_file_nama'];?>" alt="" title="CoderPro Home Page"/>
+                        <?php
+                        while ($gambar = $filegambar->fetch_array()) {
+                        ?>
+                            <div class="col-12 col-md-4 mb-3">
+                                <a href="assets/upload/img/<?= $gambar['prs_file_nama']; ?>">
+                                    <img class="figure-img img-fluid shadow rounded" src="assets/upload/img/<?= $gambar['prs_file_nama']; ?>" alt="" title="CoderPro Home Page" />
                                 </a>
-							</div>
-					<?php }?>
-						</div><!--//gallery-->
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <!--//gallery-->
+                  
                 </div>
             </div>
         </div>
@@ -227,21 +238,22 @@ $filegambar = $koneksi->query($querygambar);
 
     </footer>
 
-  <!-- Javascript -->          
+    <!-- Javascript -->
     <script src="assets/web/plugins/popper.min.js"></script>
-    <script src="assets/web/plugins/bootstrap/js/bootstrap.min.js"></script>  
-    
+    <script src="assets/web/plugins/bootstrap/js/bootstrap.min.js"></script>
+
 
     <!-- Page Specific JS -->
     <script src="assets/web/plugins/smoothscroll.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.15.8/highlight.min.js"></script>
-    <script src="assets/web/js/highlight-custom.js"></script> 
-    <script src="assets/web/plugins/simplelightbox/simple-lightbox.min.js"></script>      
-    <script src="assets/web/plugins/gumshoe/gumshoe.polyfills.min.js"></script> 
-    <script src="assets/web/js/docs.js"></script> 
+    <script src="assets/web/js/highlight-custom.js"></script>
+    <script src="assets/web/plugins/simplelightbox/simple-lightbox.min.js"></script>
+    <script src="assets/web/plugins/gumshoe/gumshoe.polyfills.min.js"></script>
+    <script src="assets/web/js/docs.js"></script>
+    <script type="text/javascript" src="https://platform-api.sharethis.com/js/sharethis.js#property=61e6dd4ec1ec4500191a7f59&product=inline-share-buttons" async="async"></script>
     <script>
         const lightboxdiv = document.querySelector('.simplelightbox-gallery');
-        const preViewImg = function(){
+        const preViewImg = function() {
             let element = '';
             for (let index = 0; index < 1; index++) {
                 element += `<div class="col-12 col-md-4 mb-3">
@@ -249,11 +261,12 @@ $filegambar = $koneksi->query($querygambar);
                                     <img class="figure-img img-fluid shadow rounded" src="assets/web/images/coderpro-home-thumb.png" alt="" title="CoderPro Home Page"/>
                                 </a>
                             </div>`;
-                }
+            }
             lightboxdiv.innerHTML = element
-        var lightbox = new SimpleLightbox('.simplelightbox-gallery a', {/* options */});
-        // var lightbox = new SimpleLightbox(imgpreview, {/* options */});
-        //     console.log(imgpreview)
+            var lightbox = new SimpleLightbox('.simplelightbox-gallery a', {
+                /* options */ });
+            // var lightbox = new SimpleLightbox(imgpreview, {/* options */});
+            //     console.log(imgpreview)
         }
     </script>
 </body>

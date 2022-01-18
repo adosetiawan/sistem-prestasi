@@ -83,8 +83,8 @@
                                     <!--//card-icon-holder-->
                                     <span class="card-title-text">Dokumentasi Prestasi.</span>
                                 </h5>
-                                <div class="card-text">
-                                    Section overview goes here. Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor.
+                                <div class="card-text text-center">
+                                    Sistem ini dilengkapi dengan dokumentasi prestasi berupa bukti gambar.
                                 </div>
                                 <a class="card-link-mask" href="docs-page.html#section-1"></a>
                             </div>
@@ -101,10 +101,10 @@
                                         <i class="fas fa-arrow-down"></i>
                                     </span>
                                     <!--//card-icon-holder-->
-                                    <span class="card-title-text">Detail Prestasi.</span>
+                                    <span class="card-title-text">Share Prestasi.</span>
                                 </h5>
-                                <div class="card-text">
-                                    Section overview goes here. Donec pede justo, fringilla vel, aliquet nec, vulputate eget, arcu. In enim justo, rhoncus ut, imperdiet a, venenatis vitae, justo.
+                                <div class="card-text text-center">
+                                    Fitur share memberikan momen prestasi mahasiswa kepada publik.
                                 </div>
                                 <a class="card-link-mask" href="docs-page.html#section-2"></a>
                             </div>
@@ -123,8 +123,8 @@
                                     <!--//card-icon-holder-->
                                     <span class="card-title-text">User Friendly.</span>
                                 </h5>
-                                <div class="card-text">
-                                    Section overview goes here. Aliquam lorem ante, dapibus in, viverra quis, feugiat a, tellus. Phasellus viverra nulla ut metus varius laoreet. Quisque rutrum. Aenean imperdiet.
+                                <div class="card-text text-center">
+                                    Sistem ini di bangun dengan fitur yang user friendly dengan kemudahan fiturnya.
                                 </div>
                                 <a class="card-link-mask" href="docs-page.html#section-3"></a>
                             </div>
@@ -159,7 +159,7 @@
             <small class="copyright">Mahasiswa Informasi 2020 <i class="fas fa-heart" style="color: #fb866a;"></i> by <a class="theme-link" href="http://themes.3rdwavemedia.com" target="_blank">Xiaoying Riley</a> </small>
         </div>
     </footer>
-
+       
     <!-- Javascript -->
     <script src="assets/web/plugins/popper.min.js"></script>
     <script src="assets/web/plugins/bootstrap/js/bootstrap.min.js"></script>
