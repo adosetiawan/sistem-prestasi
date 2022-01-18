@@ -12,6 +12,8 @@ if (isset($_POST['submit'])) {
   $email = $_POST['email'];
 
   $query = "UPDATE tb_mahasiswa SET mhs_nama='" . $namaMahasiswa . "', mhs_tgl_lahir='" . $tanggalLahir . "', mhs_alamat='" . $alamat . "', mhs_prodi_kode='" . $prodi . "', mhs_telp='" . $telpon . "', mhs_email='" . $email . "' WHERE mhs_nim = '" . $nimMahasiswa . "'";
+  // print_r($query);
+  // exit;
   $eksekusi = mysqli_query($koneksi, $query);
   
   if ($eksekusi) {

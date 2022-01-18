@@ -12,7 +12,10 @@ $result = mysqli_fetch_array($query);
 
 $query = 'SELECT * FROM tb_prestasi JOIN tb_mahasiswa ON prs_mhs_nim = mhs_nim JOIN tb_prodi ON prodi_kode = mhs_prodi_kode JOIN tb_tingkat ON tingkat_id = prs_tingkat_id WHERE  mhs_nim=' . $nim . '';
 
+$querygambar = 'SELECT * FROM tb_prestasi JOIN tb_mahasiswa ON prs_mhs_nim = mhs_nim JOIN tb_prestasi_file ON tb_prestasi.prs_id = prs_file_prsid JOIN tb_tingkat ON tingkat_id = prs_tingkat_id WHERE mhs_nim=' . $nim . '';
+
 $prestasi = $koneksi->query($query);
+$filegambar = $koneksi->query($querygambar);
 ?>
 
 <head>
@@ -149,23 +152,7 @@ $prestasi = $koneksi->query($query);
                     </div>
                 </div>
                 <div class="col-md-6">
-                    <div class="simplelightbox-gallery row mb-3">
-							<div class="col-12 col-md-4 mb-3">
-						        <a href="assets/web/images/coderpro-home.png">
-                                    <img class="figure-img img-fluid shadow rounded" src="assets/web/images/coderpro-home-thumb.png" alt="" title="CoderPro Home Page"/>
-                                </a>
-							</div>
-							<div class="col-12 col-md-4 mb-3">
-						        <a href="assets/web/images/coderpro-features.png">
-                                    <img class="figure-img img-fluid shadow rounded" src="assets/web/images/coderpro-features-thumb.png" alt="" title="CoderPro Features Page"/>
-                                </a>
-							</div><!--//col-->
-							<div class="col-12 col-md-4 mb-3">
-						        <a href="assets/web/images/coderpro-pricing.png">
-                                    <img class="figure-img img-fluid shadow rounded" src="assets/web/images/coderpro-pricing-thumb.png" alt="" title="CoderPro Pricing Page"/>
-                                </a>
-							</div><!--//col-->
-						</div><!--//gallery-->
+              
                     <div class="card mt-4">
                         <div class="card-header alert-primary">
                             <h6 class="card-title">Daftar Prestasi Mahasiswa</h6>
@@ -179,7 +166,6 @@ $prestasi = $koneksi->query($query);
                                         <th>Peringkat</th>
                                         <th>Tanggal</th>
                                         <th>Tingkat</th>
-                                        <th>Detail</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -198,14 +184,23 @@ $prestasi = $koneksi->query($query);
                                             </td>
                                             <td><?= date('D,m-Y', strtotime($data['prs_tgl_lomba'])); ?></td>
                                             <td><?= $data['tingkat_nama']; ?></td>
-                                            <td><button class="btn btn-info btn-sm" onclick="preViewImg()">Detail</button></td>
                                         </tr>
                                     <?php } ?>
                                 </tbody>
                             </table>
                         </div>
                     </div>
-
+                    <div class="simplelightbox-gallery row mt-3">
+                    <?php
+                    while ($gambar = $filegambar->fetch_array()) {
+                    ?>
+							<div class="col-12 col-md-4 mb-3">
+						        <a href="assets/upload/img/<?=$gambar['prs_file_nama'];?>">
+                                    <img class="figure-img img-fluid shadow rounded" src="assets/upload/img/<?=$gambar['prs_file_nama'];?>" alt="" title="CoderPro Home Page"/>
+                                </a>
+							</div>
+					<?php }?>
+						</div><!--//gallery-->
                 </div>
             </div>
         </div>
